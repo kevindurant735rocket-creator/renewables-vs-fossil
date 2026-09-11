@@ -310,7 +310,7 @@ function cmpRender(){
     {x:yrs,y:a.renew_series,name:a.name+' renewables %',mode:'lines',line:{color:C.renew,width:3}},
     {x:yrs,y:a.fossil_series,name:a.name+' fossil %',mode:'lines',line:{color:C.fossil,width:3}},
     {x:yrs,y:b.renew_series,name:b.name+' renewables %',mode:'lines',line:{color:C.renew,width:2,dash:'dot'}},
-    {x:yrs,y:b.fossil_series,name=b.name+' fossil %',mode:'lines',line:{color:C.fossil,width:2,dash:'dot'}}
+    {x:yrs,y:b.fossil_series,name:b.name+' fossil %',mode:'lines',line:{color:C.fossil,width:2,dash:'dot'}}
   ], Object.assign({}, LAYOUT, {margin:{t:10,r:14,b:40,l:46}, legend:{orientation:'h',y:-0.18}, yaxis:{title:'% of generation'}, xaxis:{title:'Year'}}), CFG);
   const verdict=(c)=>c.displacing?`${c.name} cut its fossil generation (${fmt(c.d_fossil_TWh,' TWh')}).`:`${c.name} added fossil generation (+${fmt(c.d_fossil_TWh,' TWh')}).`;
   document.getElementById('cmpNote').innerHTML = verdict(a)+' '+verdict(b);

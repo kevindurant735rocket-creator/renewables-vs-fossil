@@ -406,7 +406,7 @@ function fmt(v, dec, pre, suf){
   return (pre||'') + s + (suf||'');
 }
 document.querySelectorAll('.kpi .v[data-num]').forEach(function(el){
-  const target=parseFloat(el.dataset.num), dec=+(el.dataset.dec||0),
+  const target=parseFloat(String(el.dataset.num).replace(/,/g,'')), dec=+(el.dataset.dec||0),
         pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
   const t0=performance.now(), dur=1100;
   function step(t){
