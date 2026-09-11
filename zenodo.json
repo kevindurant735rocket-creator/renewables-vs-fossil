@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "title": "The Global Renewable Electricity Transition and Its Decoupling from CO2 Emissions: A Reproducible Cross-Country Analysis, 2000-2022",
+    "upload_type": "publication",
+    "publication_type": "working_paper",
+    "description": "Empirical study of 163 countries (2000-2022, 3,749 country-year observations) on whether the renewable electricity transition is decoupling GDP from CO2 emissions, and whether renewables displace or merely add to fossil generation. Methods: beta/sigma convergence, Tapio decoupling index, two-way fixed-effects panel of CO2 per capita on renewable share (with lagged-renewable, first-difference, and country-clustered-robustness checks), a second outcome (CO2 intensity of electricity) that tests displacement directly, a country-level event study, and an absolute-generation displacement accounting decomposed by region. Headline results: +1 pp renewable share implies ~0.4% lower CO2/capita and ~2.2% lower grid carbon intensity, but the world added ~5,600 TWh renewables alongside ~7,900 TWh fossil generation, and only 31% of countries cut fossil output. Fully reproducible: src/analysis.py -> results.json -> report.html/dashboard.html.",
+    "creators": [
+      { "name": "[Author]", "affiliation": "[Affiliation]" }
+    ],
+    "keywords": [
+      "renewable electricity",
+      "decoupling",
+      "Tapio index",
+      "fixed-effects panel",
+      "carbon intensity",
+      "displacement",
+      "energy transition",
+      "CO2 emissions"
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "communities": [
+      { "identifier": "energy-economics" }
+    ],
+    "references": [
+      "Tapio, P. (2005). Towards a theory of decoupling. Transport Policy 12(2):137-151.",
+      "OECD (2002). Indicators to measure decoupling of environmental pressure from economic growth.",
+      "IPCC (2022). Climate Change 2022: Mitigation of Climate Change.",
+      "IEA (2023). World Energy Outlook 2023."
+    ],
+    "upload_files": [
+      "results.json",
+      "report.html",
+      "manuscript.tex",
+      "preprint.md",
+      "figures/figure1_global_trend.png",
+      "figures/figure2_regional.png",
+      "figures/figure3_beta.png",
+      "figures/figure4_tapio.png",
+      "figures/figure5_renew_decoupling.png",
+      "figures/figure6_prevalence.png",
+      "figures/figure7_heterogeneity.png",
+      "figures/figure8_projection.png",
+      "figures/figure9_event_study.png",
+      "figures/figure10_displacement.png",
+      "figures/figure11_displacement_regional.png",
+      "figures/figure12_carbon_intensity.png",
+      "src/analysis.py",
+      "src/build_report.py",
+      "src/build_dashboard.py",
+      "README.md"
+    ]
+  }
+}

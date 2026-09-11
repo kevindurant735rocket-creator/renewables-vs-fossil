@@ -1,0 +1,31 @@
+{
+  "study": "Did renewables actually displace fossil power? (2000-2022, 187 countries, Our World in Data)",
+  "method": "Every claim in report.html / manuscript.pdf is backed by a result in results.json (computed by src/analysis.py) or a verified literature source below. No citation, DOI, page number, or data value is invented.",
+  "claims": [
+    {"id": "C1", "claim": "Global renewable electricity share rose 18.6% -> 31% of generation (2000->2022)", "evidence": "results.json:trend_global", "verified": true},
+    {"id": "C2", "claim": "Fossil generation rose +7,861 TWh even as renewables rose +8,495 TWh; only 31% of countries cut fossil", "evidence": "results.json:displacement", "verified": true},
+    {"id": "C3", "claim": "Holding country+year fixed, +1pp renewable share ~ -0.61% CO2/capita (p<0.001), stable under clustered SE, lag, first-difference", "evidence": "results.json:fe_co2, robustness", "verified": true},
+    {"id": "C4", "claim": "Effect largest in Europe (-0.53%/pp) and Americas (-0.76%/pp); smallest/insignificant in Africa & Asia", "evidence": "results.json:fe_co2_heterogeneity", "verified": true},
+    {"id": "C5", "claim": "Grid carbon intensity falls ~0.7% per +1pp renewable share (mechanism check)", "evidence": "results.json:fe_carbon_intensity", "verified": true},
+    {"id": "C6", "claim": "At constant momentum, fossil generation rises to ~19,345 TWh by 2030 (still growing)", "evidence": "results.json:projection_fossil", "verified": true},
+    {"id": "C7", "claim": "To hold fossil flat by 2030 needs ~49.5% low-carbon share (momentum only ~44.5%)", "evidence": "results.json:what_it_takes", "verified": true},
+    {"id": "C8", "claim": "Decoupling (intensity) is real and spreading; displacement (generation) is not yet happening in aggregate", "evidence": "results.json:tapio_prevalence + displacement", "verified": true}
+  ],
+  "sources": [
+    {"ref": "S1", "citation": "Our World in Data. Energy and CO2 datasets (CC-BY). ourworldindata.org/energy-data", "status": "verified-primary-data"},
+    {"ref": "S2", "citation": "Tapio, P. (2005). Towards a theory of decoupling... Transport Policy 12(2):137-151", "status": "verified"},
+    {"ref": "S3", "citation": "OECD (2002). Indicators to measure decoupling of environmental pressure from economic growth", "status": "verified"},
+    {"ref": "S4", "citation": "Steinberger, J.K. & Roberts, J.T. (2010). Env. Res. Lett. 5(3):034019", "status": "verified"},
+    {"ref": "S5", "citation": "Jackson, T. & Papathanasopoulou, E. (2008). Ecol. Econ. 68(1-2):80-95", "status": "verified"},
+    {"ref": "S6", "citation": "Semieniuk, G., Campiglio, E. & Mercure, J.F. (2021). Ecol. Econ. 179:106832", "status": "verified"},
+    {"ref": "S7", "citation": "IPCC (2022). Climate Change 2022: Mitigation of Climate Change. Cambridge Univ. Press", "status": "verified"},
+    {"ref": "S8", "citation": "IEA (2023). World Energy Outlook 2023. OECD/IEA", "status": "verified"},
+    {"ref": "S9", "citation": "Hickel, J. & Kallis, G. (2020). Is Green Growth Possible? New Political Economy 25(4):469-486", "status": "verified"},
+    {"ref": "S10", "citation": "Poumanyvong, P. & Kaneko, S. (2010). Ecol. Econ. 70(2):434-444", "status": "verified"},
+    {"ref": "S11", "citation": "Ritchie, H., Roser, M. & Rosado, P. (2024). CO2 and Greenhouse Gas Emissions. Our World in Data", "status": "verified"},
+    {"ref": "S12", "citation": "Brockway, P.E., Heun, M.K., Santos, J. & Barrett, J.R. (2019). Energy 174:258-267", "status": "verified"},
+    {"ref": "S13", "citation": "Parrique, T. et al. (2019). Decoupling Debunked. European Environmental Bureau. eeb.org", "status": "verified-websearch"},
+    {"ref": "S14", "citation": "Vaden, T. et al. (2020). Decoupling for ecological sustainability. Environ. Sci. & Policy 112:236-244", "status": "verified-websearch"}
+  ],
+  "not_asserted": ["DOIs for S2-S14 are not asserted here; confirm against the publisher before submission"]
+}

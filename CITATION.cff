@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Did renewables actually displace fossil power? A reproducible cross-country analysis, 2000-2022"
+authors:
+  - family-names: "Your Name"
+    given-names: ""
+    orcid: "0000-0000-0000-0000"   # replace with your ORCID
+date-released: 2026-09-11
+license: CC-BY-4.0
+url: "https://github.com/your-github-username/renewables-vs-fossil"
+repository-code: "https://github.com/your-github-username/renewables-vs-fossil"
+abstract: >-
+  We test whether a rising renewable-electricity share displaced fossil generation
+  across 187 countries (2000-2022). With country- and year-fixed-effects models plus
+  generation-level accounting, we find decoupling of carbon intensity is real, yet
+  absolute fossil generation rose in roughly 70% of countries. We quantify the 2030
+  low-carbon deployment rate required merely to hold fossil generation flat.
+keywords:
+  - "renewable energy"
+  - "decoupling"
+  - "energy transition"
+  - "reproducible research"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.XXXXXXX"   # placeholder; replace after Zenodo deposit
+    description: "Zenodo archive DOI"

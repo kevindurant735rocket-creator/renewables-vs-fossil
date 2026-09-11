@@ -1,0 +1,14 @@
+{
+  "title": "Did renewables actually displace fossil power? A reproducible cross-country analysis, 2000-2022",
+  "upload_type": "software",
+  "description": "Reproducible analysis of whether rising renewable electricity share displaced fossil generation across 187 countries (2000-2022). Includes code, figures, and a manuscript.",
+  "creators": [
+    { "name": "Your Name", "orcid": "0000-0000-0000-0000" }
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "keywords": ["renewable energy", "decoupling", "energy transition", "reproducible research"],
+  "related_identifiers": [
+    { "identifier": "https://github.com/your-github-username/renewables-vs-fossil", "relation": "isSupplementTo" }
+  ]
+}

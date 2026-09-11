@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Did Renewables Actually Displace Fossil Power? | Global Electricity Transition, 2000&ndash;2022</title>
+<meta name="description" content="The world added more renewables than ever &mdash; and more fossil power than ever. An interactive, reproducible study of 163 countries (2000&ndash;2022) on whether the energy transition is really breaking the link between growth and CO&#8322;.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://example.org/renewables-displace-fossil/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Did renewables actually displace fossil power &mdash; or just ride on top of it?">
+<meta property="og:description" content="163 countries, 2000&ndash;2022. Renewable share is linked to lower CO&#8322; per capita almost everywhere &mdash; yet fossil generation rose by 7,861 TWh while renewables rose by 5,636 TWh, and only 31% of countries cut fossil output.">
+<meta property="og:image" content="figures/social.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Did renewables actually displace fossil power &mdash; or just ride on top of it?">
+<meta name="twitter:description" content="163 countries, 2000&ndash;2022. Lower CO&#8322; per capita, yes. Less fossil power, no. Explore the interactive analysis.">
+<meta name="twitter:image" content="figures/figure1_global_trend.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "The Global Renewable Electricity Transition and Its Decoupling from CO2 Emissions",
+  "abstract": "Using 163 countries over 2000-2022 (163 country-year observations), this reproducible study combines convergence analysis, the Tapio decoupling index, a two-way fixed-effects panel, a grid carbon-intensity outcome, and displacement accounting. Renewable share is associated with lower CO2 per capita almost everywhere, yet fossil generation rose by 7,861 TWh while renewables rose by 5,636 TWh, and only 31% of countries cut fossil output.",
+  "author": {"@type": "Person", "name": "Your Name"},
+  "datePublished": "2026-09-11",
+  "sameAs": ["https://github.com/your-github-username/renewables-vs-fossil"],
+  "about": ["renewable electricity", "decarbonisation", "decoupling", "energy transition", "CO2 emissions"],
+  "keywords": "renewable electricity, decoupling, Tapio index, fixed-effects panel, carbon intensity, displacement"
+}
+</script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+:root{
+  --ink:#13201a; --muted:#5d6b63; --line:#e4eae6; --bg:#fbfdfb; --card:#fff;
+  --accent:#1b6b3a; --accent-d:#0f3d24; --warn:#c0492b; --warn-bg:#fff5f1;
+  --blue:#1f6f9e; --radius:16px; --shadow:0 1px 3px rgba(0,0,0,.05),0 8px 24px rgba(16,61,36,.06);
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;z-index:20;background:rgba(251,253,251,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.3px}
+.brand img{width:28px;height:28px;border-radius:7px}
+.nav nav{display:flex;gap:22px;font-size:14.5px;font-weight:600}
+.nav nav a{color:var(--ink)}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);font-size:24px;cursor:pointer;line-height:1}
+.hero{background:linear-gradient(150deg,#0f3d24,#1b6b3a 60%,#238a49);color:#fff;padding:60px 0 50px;position:relative;overflow:hidden}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.14);padding:4px 12px;border-radius:20px;font-size:12.5px;letter-spacing:.3px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,4.4vw,46px);line-height:1.12;margin:0 0 14px;font-weight:850;letter-spacing:-.5px;max-width:920px}
+.hero p.lead{font-size:17px;opacity:.94;max-width:760px;margin:0 0 24px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:11px;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer}
+.btn.primary{background:#fff;color:var(--accent-d)}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.35)}
+.btn:hover{text-decoration:none;opacity:.92}
+.share{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.share .lbl{font-size:13px;opacity:.85;margin-right:2px}
+.sb{width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:700}
+.sb:hover{background:rgba(255,255,255,.22)}
+.hero figure{margin:30px 0 0}
+.hero figure img{width:100%;border-radius:14px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.18)}
+.hero figcaption{font-size:12.5px;opacity:.8;margin-top:8px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:-34px auto 0;position:relative;z-index:5}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;box-shadow:var(--shadow)}
+.kpi .v{font-size:24px;font-weight:850;color:var(--accent);line-height:1.05}
+.kpi.warn .v{color:var(--warn)}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:7px}
+section{padding:54px 0}
+h2{font-size:26px;margin:0 0 6px;letter-spacing:-.3px}
+h2 .n{color:var(--accent);font-weight:850;margin-right:10px}
+.lead2{color:var(--muted);font-size:15.5px;max-width:840px;margin:6px 0 26px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(16,61,36,.12)}
+.card .ic{width:44px;height:44px;border-radius:11px;background:#eaf4ee;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:17px}
+.card p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.card .more{font-weight:700;font-size:13.5px}
+.callout{background:var(--warn-bg);border-left:4px solid var(--warn);border-radius:10px;padding:16px 20px;margin:0 0 26px;font-size:15px}
+.step{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step .num{flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.step h4{margin:4px 0 4px;font-size:16px}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+.code{background:#0f1714;color:#d6f5e0;border-radius:12px;padding:16px 18px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;overflow-x:auto}
+.code .c{color:#7fae8e}
+.cite{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:13.5px;position:relative}
+.cite button{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:#f4f8f5;border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:600}
+footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:#13201a;color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* interactive explore + charts */
+.explore{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.explore select{font-size:15px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);width:100%;max-width:320px;margin-bottom:8px}
+.chart{width:100%}
+.callout.good{background:#eaf4ee;border-left-color:var(--accent)}
+/* case studies */
+.stories img{width:100%;border-radius:12px;border:1px solid var(--line);margin-bottom:18px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.scard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.scard h4{margin:0 0 4px;font-size:15px}
+.scard .meta{font-size:12.5px;color:var(--muted)}
+.badge{display:inline-block;padding:1px 9px;border-radius:20px;font-size:11.5px;font-weight:700;margin-left:6px}
+.b-good{background:#e3f3e8;color:#1b6b3a}.b-bad{background:#fbe6e0;color:#c0492b}
+/* FAQ */
+.faq details{border:1px solid var(--line);border-radius:12px;padding:0 16px;margin-bottom:10px;background:#fff}
+.faq summary{padding:14px 0;font-weight:700;cursor:pointer;list-style:none;font-size:15.5px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:before{content:"+";margin-right:10px;color:var(--accent);font-weight:900;font-size:18px}
+.faq details[open] summary:before{content:"\2212"}
+.faq p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}.grid,.sgrid{grid-template-columns:1fr}
+  .nav nav{display:none;position:absolute;top:62px;left:0;right:0;background:#0f3d24;flex-direction:column;padding:14px 22px;gap:14px}
+  .nav nav a{color:#fff}
+  .nav nav.open{display:flex}.menu-btn{display:block}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand"><img src="favicon.svg" alt="">Renewables &amp; Decoupling</div>
+    <nav>
+      <a href="#explore">Explore</a>
+      <a href="#stories">Stories</a>
+      <a href="#utility">Utility</a>
+      <a href="#faq">FAQ</a>
+      <a href="#howto">How&nbsp;to</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="report.html">Report</a>
+      <a href="manuscript.pdf">Paper</a>
+      <a href="results.json">Data</a>
+      <a href="https://github.com/your-github-username/renewables-vs-fossil">Code</a>
+    </nav>
+    <button class="menu-btn" aria-label="Menu">&#9776;</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">An interactive, reproducible study &middot; 163 countries &middot; 2000&ndash;2022</span>
+    <h1>Did renewables actually <i>displace</i> fossil power &mdash; or just ride on top of it?</h1>
+    <p class="lead">Global renewable electricity rose from 18.7% to 29.4% this century. But fossil generation kept growing too. This page lets you see, country by country, whether the clean-energy transition is really breaking the link between growth and carbon &mdash; or just adding a greener line to a still-expanding system.</p>
+    <div class="cta">
+      <a class="btn primary" href="dashboard.html">&#9654;&nbsp; Explore your country</a>
+      <a class="btn ghost" href="report.html">Read the full report</a>
+    </div>
+    <div class="share">
+      <span class="lbl">Share:</span>
+      <button class="sb" data-net="x" title="Share on X">X</button>
+      <button class="sb" data-net="linkedin" title="Share on LinkedIn">in</button>
+      <button class="sb" data-net="facebook" title="Share on Facebook">f</button>
+      <button class="sb" data-net="weibo" title="Share on Weibo">微</button>
+      <button class="sb" id="copyBtn" title="Copy link">&#128279;</button>
+    </div>
+    <figure>
+      <img src="figures/hero.png" alt="Renewables climb; fossil generation keeps rising">
+      <figcaption>Global electricity mix, 2000&ndash;2022. Renewables climb; fossil generation keeps rising (64.6% &rarr; 61.4%).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi"><div class="v" data-num="10.7" data-prefix="+" data-suffix="pp" data-dec="1">+10.7pp</div><div class="l">Renewable share of global electricity, 2000&rarr;2022</div></div>
+    <div class="kpi warn"><div class="v" data-num="31" data-suffix="%" data-dec="0">31%</div><div class="l">of countries actually <b>cut</b> fossil generation</div></div>
+    <div class="kpi warn"><div class="v" data-num="7,861" data-prefix="+" data-suffix=" TWh" data-dec="0">+7,861</div><div class="l">TWh of fossil added &mdash; vs +5,636 TWh renewables</div></div>
+    <div class="kpi"><div class="v" data-num="0.61" data-prefix="&minus;" data-suffix="%" data-dec="2">&minus;0.61%</div><div class="l">CO&#8322;/capita per +1pp renewable (fixed effects)</div></div>
+    <div class="kpi"><div class="v" data-num="36" data-suffix="%" data-dec="0">36%</div><div class="l">renewable share projected by 2030 (35&ndash;37%)</div></div>
+  </div>
+</div>
+
+<section id="explore">
+  <div class="wrap">
+    <h2><span class="n">#</span>Explore the trend yourself</h2>
+    <p class="lead2">The headline numbers above come straight from this chart. Pick a country to overlay its renewable and fossil shares on the world line &mdash; then ask the real question: did its renewable build <i>replace</i> fossil, or pile on top?</p>
+    <div class="explore reveal">
+      <select id="exploreSel"><option value="">World only</option></select>
+      <div id="exploreChart" class="chart" style="height:420px;"></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f3f7f4;">
+  <div class="wrap">
+    <h2><span class="n">#</span>Where this is heading: fossil keeps rising to 2030</h2>
+    <p class="lead2">Hold the 2013&ndash;2022 momentum of renewable share, low-carbon share and electricity demand, and fossil generation does not bend down &mdash; it keeps climbing.</p>
+    <div class="callout warn"><b>At current momentum, global fossil generation rises from 17,693 TWh (2022) to about 19,345 TWh by 2030</b> &mdash; an added <b>1,652 TWh</b>. The transition is adding clean power faster than it is retiring dirty power.</div>
+    <div class="card reveal"><div id="fossilChart" class="chart" style="height:380px;"></div></div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap">
+    <h2><span class="n">#</span>Country stories: who displaced, who piled on</h2>
+    <p class="lead2">Six countries, six very different trajectories. The clean-energy leaders (Germany, Denmark, the UK, the US) cut fossil generation; the fast-growers (China, India) added enormous amounts even as their renewable share rose.</p>
+    <div class="stories reveal"><img src="figures/figure13_case_studies.png" alt="Six country trajectories of renewable and fossil electricity shares"></div>
+    <div class="sgrid" id="storyCards"></div>
+  </div>
+</section>
+
+<section id="utility">
+  <div class="wrap">
+    <h2><span class="n">#</span>Utility &mdash; what you can do here</h2>
+    <p class="lead2">Everything on this page is generated from one analysis pipeline. Pick the view that fits what you need &mdash; from a two-minute interactive look to the machine-readable data behind every number.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">&#128202;</div>
+        <h3>Interactive explorer</h3>
+        <p>Choose any of 163 countries and watch its renewable and fossil shares move since 2000, with displacement and decoupling status.</p>
+        <a class="more" href="dashboard.html">Open dashboard &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="ic">&#128221;</div>
+        <h3>Full report</h3>
+        <p>A thesis-level HTML paper: methods, 12 figures, and five tables walking through every result.</p>
+        <a class="more" href="report.html">Read report &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="ic">&#127891;</div>
+        <h3>Academic PDF</h3>
+        <p>Journal-submission LaTeX with literature review, robustness checks, and heterogeneity tables.</p>
+        <a class="more" href="manuscript.pdf">Download PDF &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="ic">&#128190;</div>
+        <h3>The data</h3>
+        <p>Every figure and statistic as machine-readable JSON, so you can verify or extend the analysis.</p>
+        <a class="more" href="results.json">Get results.json &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="ic">&#9874;</div>
+        <h3>Reproduce it</h3>
+        <p>Three commands regenerate the entire project from the raw OWID CSVs. See <a href="#howto">How&nbsp;to</a>.</p>
+        <a class="more" href="https://github.com/your-github-username/renewables-vs-fossil">View code &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="ic">&#128172;</div>
+        <h3>Plain-language read</h3>
+        <p>An explainer written for a general audience &mdash; shareable, no equations required.</p>
+        <a class="more" href="post_zh.md">中文解读 &rarr;</a> &nbsp; <a class="more" href="post_en.md">English &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:#f3f7f4;">
+  <div class="wrap">
+    <h2><span class="n">#</span>Myth vs fact</h2>
+    <p class="lead2">The findings get misread in predictable ways. Here are the four most common.</p>
+    <div class="faq">
+      <details open><summary>&ldquo;Renewable share is rising everywhere &mdash; so we&rsquo;re winning.&rdquo;</summary>
+      <p>Share and absolute generation are different things. Because total electricity demand grew, the world added <b>5,636 TWh</b> of renewables <i>and</i> <b>7,861 TWh</b> of fossil over 2000&ndash;2022. A rising renewable <i>share</i> mostly means clean power is catching up to a growing total &mdash; not that coal and gas are being switched off.</p></details>
+      <details><summary>&ldquo;Lower CO&#8322; per capita proves the transition is working.&rdquo;</summary>
+      <p>It proves the <i>intensity</i> link is real &mdash; each +1pp of renewable share is associated with about &minus;0.61% CO&#8322;/capita. But intensity falling is not the same as fossil generation falling. The fixed-effects result is an associational dividend, not evidence that fossil plants were retired.</p></details>
+      <details><summary>&ldquo;We&rsquo;re just early &mdash; it&rsquo;ll flip soon.&rdquo;</summary>
+      <p>Not at current pace. Holding the last decade&rsquo;s momentum, fossil generation reaches about <b>19,345 TWh</b> by 2030 &mdash; up from 17,693 TWh in 2022. Decoupling is spreading (absolute-decoupling countries rose from 11% to 34%), but absolute fossil output is still growing.</p></details>
+      <details><summary>&ldquo;So this is anti-renewables?&rdquo;</summary>
+      <p>No. Renewables are clearly cutting emissions per person, strongly in Europe and the Americas. The point is narrower and more useful: the build-out has been <i>additive</i>, not <i>substitutive</i>. Closing fossil plant &mdash; not just building renewables &mdash; is the missing half of the transition.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="howto">
+  <div class="wrap">
+    <h2><span class="n">#</span>How to &mdash; read, reproduce, cite</h2>
+    <p class="lead2">The study is built to be checked. Three short guides below.</p>
+
+    <div class="callout good"><b>The one-sentence finding:</b> renewable share is linked to lower CO&#8322; per capita almost everywhere (about &minus;0.61% per +1pp), yet the growth is overwhelmingly <i>additive</i> &mdash; fossil generation rose by 7,861 TWh while renewables rose by 5,636 TWh, and only 31% of countries cut fossil output.</div>
+
+    <h3 style="margin:8px 0 4px;">How to read the results</h3>
+    <div class="step"><div class="num">1</div><div><h4>Decoupling &#8800; displacement</h4><p>&ldquo;Lower emissions per person&rdquo; (a fixed-effects <i>intensity</i> result) is not the same as &ldquo;less fossil power.&rdquo; The displacement question is about absolute generation, and there the picture flips: globally, fossil grew more than renewables did.</p></div></div>
+    <div class="step"><div class="num">2</div><div><h4>Where it works</h4><p>The emissions dividend is largest in the Americas (&minus;0.76%/pp) and Europe (&minus;0.53%/pp), and weakest where grids were just starting out. Split by 2000 baseline, it is strongest exactly where renewable penetration was already high.</p></div></div>
+    <div class="step"><div class="num">3</div><div><h4>Why 2030 still matters</h4><p>Extrapolating recent momentum gives roughly 36% renewable share by 2030 &mdash; real progress, still far below fossil&rsquo;s ~61% share.</p></div></div>
+
+    <h3 style="margin:30px 0 8px;">How to reproduce</h3>
+    <div class="code"><span class="c"># from the research/ folder</span><br>python src/analysis.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# &rarr; results.json + 13 figures<br>python src/build_report.py&nbsp;&nbsp;&nbsp;# &rarr; report.html<br>python src/build_dashboard.py # &rarr; dashboard.html</div>
+
+    <h3 style="margin:30px 0 8px;">How to cite</h3>
+    <div class="cite">
+      <button onclick="copyCite()">Copy</button>
+      Your Name (2026). <i>The Global Renewable Electricity Transition and Its Decoupling from CO&#8322; Emissions: A Reproducible Cross-Country Analysis, 2000&ndash;2022.</i> Preprint. https://github.com/your-github-username/renewables-vs-fossil
+    </div>
+    <p style="margin-top:10px;color:var(--muted);font-size:13.5px">Metadata also provided as <a href="CITATION.cff">CITATION.cff</a>; deposit with <a href="zenodo.json">zenodo.json</a> for a DOI.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Data: Our World in Data &mdash; Energy &amp; CO&#8322; datasets (CC-BY). Code: MIT. Every number is computed by <code>src/analysis.py</code> and read from <code>results.json</code>.</div>
+    <div>Built as a static, shareable site &middot; <a href="dashboard.html">Dashboard</a> &middot; <a href="report.html">Report</a> &middot; <a href="manuscript.pdf">PDF</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Link copied</div>
+
+<script>
+const LD = {"years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [18.731, 18.059, 17.922, 17.457, 17.999, 18.103, 18.228, 17.964, 18.899, 19.451, 19.688, 19.992, 20.956, 21.68, 22.237, 22.948, 23.716, 24.447, 25.071, 26.052, 27.966, 28.08, 29.449], "fossil": [64.582, 65.02, 65.476, 66.842, 66.328, 66.8, 67.057, 68.27, 67.646, 67.177, 67.444, 68.085, 68.203, 67.707, 67.203, 66.461, 65.834, 65.321, 64.849, 63.648, 62.087, 62.111, 61.392], "low": [35.418, 34.98, 34.524, 33.158, 33.672, 33.2, 32.943, 31.73, 32.354, 32.823, 32.556, 31.915, 31.797, 32.293, 32.797, 33.539, 34.166, 34.679, 35.151, 36.352, 37.913, 37.889, 38.608], "cases": [{"name": "Germany", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [6.2, 6.5, 7.6, 7.8, 9.5, 10.3, 11.5, 14.2, 14.9, 16.3, 16.9, 20.6, 23.1, 24.1, 26.2, 29.4, 29.5, 33.5, 35.3, 40.2, 44.4, 40.2, 44.4], "fossil": [64.0, 63.9, 64.1, 64.8, 63.1, 63.1, 61.9, 63.6, 61.6, 60.7, 60.6, 61.6, 60.8, 60.4, 58.1, 56.2, 57.3, 54.7, 52.7, 47.3, 44.3, 47.9, 49.5]}, {"name": "Denmark", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [15.5, 15.6, 17.4, 17.6, 23.7, 27.2, 20.2, 26.3, 27.7, 27.8, 32.1, 40.4, 48.5, 46.1, 56.1, 65.8, 60.5, 70.5, 68.7, 78.5, 82.0, 79.3, 80.9], "fossil": [84.5, 84.4, 82.6, 82.4, 76.3, 72.8, 79.8, 73.7, 72.3, 72.2, 67.9, 59.6, 51.5, 53.9, 43.9, 34.2, 39.5, 29.4, 31.3, 21.4, 17.9, 20.7, 19.1]}, {"name": "China", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [16.6, 19.0, 17.6, 15.0, 16.2, 16.2, 15.6, 15.3, 19.0, 17.9, 18.7, 16.8, 20.0, 20.1, 22.2, 24.0, 24.8, 25.2, 25.6, 26.9, 28.1, 28.7, 30.2], "fossil": [82.1, 79.9, 80.9, 82.7, 81.5, 81.7, 82.5, 82.8, 79.0, 80.2, 79.5, 81.3, 78.0, 77.8, 75.5, 73.1, 71.7, 71.0, 70.3, 68.5, 67.2, 66.5, 65.1]}, {"name": "United States", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [9.2, 7.5, 8.7, 9.0, 8.7, 8.7, 9.4, 8.4, 9.2, 10.5, 10.3, 12.5, 12.2, 12.8, 13.3, 13.6, 15.3, 17.5, 17.4, 18.3, 20.3, 20.7, 22.4], "fossil": [70.9, 71.9, 71.0, 71.2, 71.3, 71.9, 71.1, 72.1, 71.2, 69.2, 70.1, 68.2, 68.8, 67.7, 67.2, 66.9, 65.0, 62.7, 63.3, 62.2, 60.1, 60.5, 59.7]}, {"name": "India", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [14.0, 13.0, 11.9, 11.7, 15.6, 15.3, 17.1, 17.8, 16.8, 15.2, 15.1, 16.7, 14.9, 16.0, 15.8, 14.6, 14.4, 15.5, 16.3, 17.6, 19.0, 18.8, 20.2], "fossil": [83.2, 83.8, 84.9, 85.5, 81.3, 82.2, 80.5, 80.0, 81.4, 82.9, 82.4, 80.2, 82.1, 81.0, 81.5, 82.5, 82.8, 82.0, 81.2, 79.6, 78.1, 78.6, 77.2]}, {"name": "United Kingdom", "years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "renew": [2.6, 2.5, 2.9, 2.7, 3.6, 4.2, 4.6, 5.0, 5.6, 6.7, 6.9, 9.6, 11.3, 14.9, 19.1, 24.6, 24.5, 29.2, 33.0, 36.6, 43.1, 39.8, 41.6], "fossil": [74.8, 74.1, 74.4, 75.0, 76.1, 75.3, 76.5, 79.2, 80.9, 75.0, 76.9, 71.7, 69.3, 65.4, 62.1, 54.6, 54.4, 50.0, 47.5, 46.2, 40.7, 45.2, 43.8]}], "fossil_actual_years": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022], "fossil_actual": [9833.0, 10042.0, 10470.0, 11072.0, 11509.0, 12067.0, 12585.0, 13408.0, 13548.0, 13346.0, 14287.0, 14906.0, 15301.0, 15621.0, 15902.0, 15894.0, 16198.0, 16562.0, 17105.0, 17019.0, 16531.0, 17491.0, 17693.0], "fossil_path": [{"year": 2023, "fossil_gen": 17806.0}, {"year": 2024, "fossil_gen": 18026.0}, {"year": 2025, "fossil_gen": 18247.0}, {"year": 2026, "fossil_gen": 18468.0}, {"year": 2027, "fossil_gen": 18688.0}, {"year": 2028, "fossil_gen": 18908.0}, {"year": 2029, "fossil_gen": 19127.0}, {"year": 2030, "fossil_gen": 19345.0}], "fossil_base_year": 2022, "fossil_base": 17693.0, "fossil_2030": 19345.0};
+const C = {renew:'#2ca02c', fossil:'#d62728', low:'#1f77b4', ink:'#333'};
+const LAYOUT = {font:{family:'-apple-system,Segoe UI,Roboto,sans-serif',size:12}, margin:{t:30,r:14,b:46,l:56}, paper_bgcolor:'#fff', plot_bgcolor:'#fff', hovermode:'closest'};
+const CFG = {displayModeBar:false, responsive:true};
+
+/* ---- animated KPI counters ---- */
+function fmt(v, dec, pre, suf){
+  const s = Number(v).toLocaleString(undefined,{minimumFractionDigits:dec, maximumFractionDigits:dec});
+  return (pre||'') + s + (suf||'');
+}
+document.querySelectorAll('.kpi .v[data-num]').forEach(function(el){
+  const target=parseFloat(el.dataset.num), dec=+(el.dataset.dec||0),
+        pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+  const t0=performance.now(), dur=1100;
+  function step(t){
+    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+    el.textContent=fmt(target*e,dec,pre,suf);
+    if(k<1) requestAnimationFrame(step); else el.textContent=fmt(target,dec,pre,suf);
+  }
+  requestAnimationFrame(step);
+});
+
+/* ---- reveal on scroll ---- */
+const io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* ---- mobile nav ---- */
+document.querySelector('.menu-btn').addEventListener('click',function(){
+  document.querySelector('.nav nav').classList.toggle('open');
+});
+document.querySelectorAll('.nav nav a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.nav nav').classList.remove('open');});});
+
+/* ---- interactive explore chart ---- */
+const sel=document.getElementById('exploreSel');
+LD.cases.forEach(function(c,i){const o=document.createElement('option');o.value=i;o.textContent=c.name;sel.appendChild(o);});
+function drawExplore(){
+  const i=sel.value;
+  const traces=[
+    {x:LD.years,y:LD.renew,name:'Renewables (world)',mode:'lines',line:{color:C.renew,width:3}},
+    {x:LD.years,y:LD.fossil,name:'Fossil (world)',mode:'lines',line:{color:C.fossil,width:3}},
+    {x:LD.years,y:LD.low,name:'Low-carbon (world)',mode:'lines',line:{color:C.low,width:2,dash:'dash'}}
+  ];
+  if(i!==''){
+    const c=LD.cases[+i];
+    traces.push({x:c.years,y:c.renew,name:c.name+' renewables',mode:'lines',line:{color:C.renew,width:2,dash:'dot'}});
+    traces.push({x:c.years,y:c.fossil,name:c.name+' fossil',mode:'lines',line:{color:C.fossil,width:2,dash:'dot'}});
+  }
+  Plotly.newPlot('exploreChart',traces,Object.assign({},LAYOUT,{
+    legend:{orientation:'h',y:-0.18},yaxis:{title:'% of generation',range:[0,100]},xaxis:{title:'Year'}}),CFG);
+}
+sel.addEventListener('change',drawExplore);
+if(window.Plotly) drawExplore();
+
+/* ---- forward fossil projection chart ---- */
+(function(){
+  if(!window.Plotly) return;
+  const act=LD.fossil_actual_years, actY=LD.fossil_actual;
+  const fp=LD.fossil_path, py=fp.map(function(p){return p.year;}), pg=fp.map(function(p){return p.fossil_gen;});
+  const allx=act.concat(py), ally=actY.concat(pg);
+  Plotly.newPlot('fossilChart',[
+    {x:act,y:actY,name:'Actual fossil generation',mode:'lines',line:{color:C.fossil,width:3},fill:'tozeroy',fillcolor:'rgba(214,39,40,0.07)'},
+    {x:py,y:pg,name:'Projected (constant momentum)',mode:'lines',line:{color:C.fossil,width:3,dash:'dash'}}
+  ],Object.assign({},LAYOUT,{
+    legend:{orientation:'h',y:-0.18},yaxis:{title:'Fossil generation (TWh)'},
+    xaxis:{title:'Year',range:[2020,2032]},
+    shapes:[{type:'line',x0:LD.fossil_base_year,x1:LD.fossil_base_year,y0:0,y1:1,yref:'paper',line:{color:'#999',dash:'dot'}}],
+    annotations:[{x:2030,y:LD.fossil_2030,text:'2030 ≈ '+LD.fossil_2030.toLocaleString()+' TWh',showarrow:true,arrowhead:2,ax:-30,ay:-28,font:{color:C.fossil}}]
+  }),CFG);
+})();
+
+/* ---- case-study cards ---- */
+(function(){
+  const cards=document.getElementById('storyCards');
+  const html=LD.cases.map(function(c){
+    const badge=c.displacing?'<span class="badge b-good">displaced fossil</span>':'<span class="badge b-bad">added fossil</span>';
+    const co2=c.co2_change_pct==null?'n/a':(c.co2_change_pct>0?'+':'')+c.co2_change_pct+'%';
+    return '<div class="scard"><h4>'+c.name+badge+'</h4>'+
+      '<div class="meta">Renewable share '+c.renew_2000+'% &rarr; '+c.renew_end+'% &middot; CO&#8322;/capita '+co2+'</div></div>';
+  }).join('');
+  cards.innerHTML=html;
+})();
+
+/* ---- share ---- */
+function share(net){
+  var url=encodeURIComponent(location.href), title=encodeURIComponent(document.title);
+  var map={
+    x:'https://twitter.com/intent/tweet?url='+url+'&text='+title,
+    linkedin:'https://www.linkedin.com/sharing/share-offsite/?url='+url,
+    facebook:'https://www.facebook.com/sharer/sharer.php?u='+url,
+    weibo:'https://service.weibo.com/share/share.php?url='+url+'&title='+title
+  };
+  if(map[net]) window.open(map[net],'_blank','width=620,height=520,noopener');
+}
+document.querySelectorAll('.sb[data-net]').forEach(function(b){
+  b.addEventListener('click',function(){ share(b.getAttribute('data-net')); });
+});
+document.getElementById('copyBtn').addEventListener('click',function(){
+  navigator.clipboard.writeText(location.href).then(function(){
+    var t=document.getElementById('toast'); t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },1600);
+  });
+});
+function copyCite(){
+  var txt=document.querySelector('.cite').innerText.replace('Copy','').trim();
+  navigator.clipboard.writeText(txt);
+  var t=document.getElementById('toast'); t.textContent='Citation copied'; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); t.textContent='Link copied'; },1600);
+}
+</script>
+</body>
+</html>

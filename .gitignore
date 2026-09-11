@@ -1,0 +1,10 @@
+# Raw data — reproducible via src/fetch_data.py
+data/*.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+*.swp
